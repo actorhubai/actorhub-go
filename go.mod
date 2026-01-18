@@ -1,4 +1,4 @@
-module github.com/actorhub/actorhub-go
+module github.com/actorhubai/actorhub-go
 
 go 1.21
 

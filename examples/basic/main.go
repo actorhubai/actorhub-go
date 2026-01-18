@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	actorhub "github.com/actorhub/actorhub-go"
+	actorhub "github.com/actorhubai/actorhub-go"
 )
 
 func main() {

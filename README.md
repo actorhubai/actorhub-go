@@ -5,7 +5,7 @@ Official Go SDK for [ActorHub.ai](https://actorhub.ai) - Verify AI-generated con
 ## Installation
 
 ```bash
-go get github.com/actorhub/actorhub-go
+go get github.com/actorhubai/actorhub-go
 ```
 
 ## Quick Start
@@ -18,7 +18,7 @@ import (
     "fmt"
     "log"
 
-    actorhub "github.com/actorhub/actorhub-go"
+    actorhub "github.com/actorhubai/actorhub-go"
 )
 
 func main() {
@@ -201,5 +201,5 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 - [Documentation](https://docs.actorhub.ai)
 - [API Reference](https://api.actorhub.ai/docs)
-- [GitHub](https://github.com/actorhub/actorhub-go)
-- [pkg.go.dev](https://pkg.go.dev/github.com/actorhub/actorhub-go)
+- [GitHub](https://github.com/actorhubai/actorhub-go)
+- [pkg.go.dev](https://pkg.go.dev/github.com/actorhubai/actorhub-go)
