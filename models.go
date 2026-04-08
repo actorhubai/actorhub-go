@@ -100,24 +100,49 @@ type ConsentLicenseInfo struct {
 	Pricing   map[string]float64  `json:"pricing,omitempty"`
 }
 
+// ConsentTokenResult represents the consent token verification included in response.
+type ConsentTokenResult struct {
+	Valid            bool     `json:"valid"`
+	Source           string   `json:"source,omitempty"`           // "provided" or "auto_detected"
+	TokenType        string   `json:"token_type,omitempty"`
+	Status           string   `json:"status,omitempty"`
+	ExpiresAt        *string  `json:"expires_at,omitempty"`
+	AllowedPlatforms []string `json:"allowed_platforms,omitempty"`
+	RemainingUses    *int     `json:"remaining_uses,omitempty"`
+	ConsentScope     map[string]interface{} `json:"consent_scope,omitempty"`
+	Reason           string   `json:"reason,omitempty"`           // only if valid=false
+}
+
+// TrustSignature represents the ES256 cryptographic signature on the response.
+type TrustSignature struct {
+	Signature       string `json:"signature"`
+	SignedAt        string `json:"signed_at"`
+	CertificateID   string `json:"certificate_id"`
+	VerificationURL string `json:"verification_url"`
+	Algorithm       string `json:"algorithm"`
+}
+
 // ConsentResult represents an individual consent check result.
 type ConsentResult struct {
-	Protected       bool                `json:"protected"`
-	IdentityID      *string             `json:"identity_id,omitempty"`
-	SimilarityScore *float64            `json:"similarity_score,omitempty"`
-	Consent         ConsentDetails      `json:"consent"`
-	Restrictions    ConsentRestrictions `json:"restrictions"`
-	License         ConsentLicenseInfo  `json:"license"`
+	Protected       bool                 `json:"protected"`
+	IdentityID      *string              `json:"identity_id,omitempty"`
+	DisplayName     *string              `json:"display_name,omitempty"`
+	SimilarityScore *float64             `json:"similarity_score,omitempty"`
+	Consent         ConsentDetails       `json:"consent"`
+	Restrictions    ConsentRestrictions  `json:"restrictions"`
+	License         ConsentLicenseInfo   `json:"license"`
+	Token           *ConsentTokenResult  `json:"token,omitempty"`
 }
 
 // ConsentCheckResponse is the response from consent check.
 type ConsentCheckResponse struct {
-	RequestID          string          `json:"request_id"`
-	Protected          bool            `json:"protected"`
-	FacesDetected      int             `json:"faces_detected"`
+	RequestID          string           `json:"request_id"`
+	Protected          bool             `json:"protected"`
+	FacesDetected      int              `json:"faces_detected"`
 	Faces              []ConsentResult `json:"faces"`
 	ResponseTimeMs     int             `json:"response_time_ms"`
 	RateLimitRemaining *int            `json:"rate_limit_remaining,omitempty"`
+	Trust              *TrustSignature `json:"trust,omitempty"`
 }
 
 // IdentityResponse represents identity details.
@@ -221,6 +246,7 @@ type ConsentCheckRequest struct {
 	Platform      string    `json:"platform"`
 	IntendedUse   string    `json:"intended_use"`
 	Region        string    `json:"region,omitempty"`
+	ConsentToken  string    `json:"consent_token,omitempty"` // Optional: self-consent token from identity owner
 }
 
 // MarketplaceListRequest represents the request for marketplace listing.
